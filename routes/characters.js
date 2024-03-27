@@ -10,7 +10,8 @@ router.get("/characters", (req, res) => {
 
 router.post("/characters", async (req, res) => {
   try {
-    const { kind, name, description, image, species, isFavorite } = req.body;
+    const { kind, name, description, image, species, isFavorite } = req.body.params;
+    
     const newCharacter = await Character.create({
       kind,
       name,
