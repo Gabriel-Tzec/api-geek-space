@@ -2,14 +2,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const sequelize = require("./connect");
 const Character = require("./models/character");
-const config = require('config');
+const dotenv = require("dotenv");
 
+if (process.env.NODE_ENV === "production") {
+  dotenv.config({ path: ".env" });
+} else {
+  dotenv.config({ path: ".env.local" });
+}
 
 const app = express();
-const PORT = config.get('port');
-const ALLOWED_ORIGIN = config.get('allowedOrigin');
-
-const AllowedHost = "";
+const PORT = process.env.PORT;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
 
 const allowOnlyFrom = (allowedOrigin) => {
   return (req, res, next) => {
